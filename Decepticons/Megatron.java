@@ -28,10 +28,10 @@ public class Megatron extends Robot
 	
 		// and the next line:
          setBodyColor(new Color(0,0,0));
-		setGunColor(new Color(166,35,35));
-		setRadarColor(new Color(255,0,0));
-		setBulletColor(new Color(215, 215, 215));
-		setScanColor(new Color(62, 69,162 ));
+		setGunColor(new Color(166, 35, 35));
+		setRadarColor(new Color(0, 100, 100));
+		setBulletColor(new Color(255, 255, 100));
+		setScanColor(new Color(255, 200, 200));
 		// Initialization of the robot should be put here
 moveAmount = Math.max(getBattleFieldWidth(), getBattleFieldHeight());
 		// Initialize peek to false
