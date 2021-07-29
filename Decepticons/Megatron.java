@@ -60,6 +60,7 @@ moveAmount = Math.max(getBattleFieldWidth(), getBattleFieldHeight());
 			peek = false;
 			// Turn to the next wall
 			turnRight(90);
+			scan();
 		}
 		
 	}
@@ -71,6 +72,8 @@ public void onHitRobot(HitRobotEvent e) {
 		else {
 			ahead(100);
 		}
+		
+		scan();
 }
 	/**
 	 * onScannedRobot: What to do when you see another robot
@@ -78,7 +81,9 @@ public void onHitRobot(HitRobotEvent e) {
 	public void onScannedRobot(ScannedRobotEvent e) {
 		// Replace the next line with any behavior you would like
 		fire(2);
+		turnRight(5);
 		if (peek) {
+		fire(1);
 			scan();		
 		}
 		
@@ -90,6 +95,7 @@ public void onHitRobot(HitRobotEvent e) {
 	public void onHitByBullet(HitByBulletEvent e) {
 		// Replace the next line with any behavior you would like		
 		
+		scan();
 			
 		back(200);
 			
@@ -102,13 +108,22 @@ public void onHitRobot(HitRobotEvent e) {
 		} else {
 			fire(3);
 		}
+		
+		scan();
 	}
 	/**
 	 * onHitWall: What to do when you hit a wall
 	 */
 	public void onHitWall(HitWallEvent e) {
 		// Replace the next line with any behavior you would like
-		
+	if ( e.getBearing() < 50 && getEnergy() > 50) {
+			fire(3);
+		} // otherwise, fire 1.
+		else {
+			scan();
+		}
+		// Call scan again, before we turn the gun
+		scan();
 	}
 	public void onDeath(DeathEvent e) {
 		// Well, others should never be 0, but better safe than sorry.
