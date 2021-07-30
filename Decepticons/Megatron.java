@@ -116,14 +116,7 @@ public void onHitRobot(HitRobotEvent e) {
 	 */
 	public void onHitWall(HitWallEvent e) {
 		// Replace the next line with any behavior you would like
-	if ( e.getBearing() < 50 && getEnergy() > 50) {
-			fire(3);
-		} // otherwise, fire 1.
-		else {
-			scan();
-		}
-		// Call scan again, before we turn the gun
-		scan();
+	
 	}
 	public void onDeath(DeathEvent e) {
 		// Well, others should never be 0, but better safe than sorry.
