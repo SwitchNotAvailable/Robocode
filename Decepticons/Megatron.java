@@ -81,10 +81,11 @@ public void onHitRobot(HitRobotEvent e) {
 	public void onScannedRobot(ScannedRobotEvent e) {
 		// Replace the next line with any behavior you would like
 		fire(2);
-		turnRight(5);
+		
 		if (peek) {
-		fire(1);
-			scan();		
+		
+			scan();
+			fire(1);		
 		}
 		
 	}
@@ -97,18 +98,11 @@ public void onHitRobot(HitRobotEvent e) {
 		
 		scan();
 			
-		back(200);
+		back(10);
 			
 	}
 	public void smartFire(double robotDistance) {
-		if (robotDistance > 200) {
-			fire(1);
-		} else if (robotDistance > 50) {
-			fire(2);
-		} else {
-			fire(3);
-		}
-		
+			
 		scan();
 	}
 	/**
@@ -116,7 +110,9 @@ public void onHitRobot(HitRobotEvent e) {
 	 */
 	public void onHitWall(HitWallEvent e) {
 		// Replace the next line with any behavior you would like
-	
+
+		// Call scan again, before we turn the gun
+		scan();
 	}
 	public void onDeath(DeathEvent e) {
 		// Well, others should never be 0, but better safe than sorry.
