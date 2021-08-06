@@ -4,7 +4,9 @@ import robocode.Robot;
 import robocode.ScannedRobotEvent;
 import robocode.HitRobotEvent;
 import java.awt.Color;
+import robocode.HitWallEvent;
 import java.awt.*;
+import robocode.RateControlRobot;
 
 import robocode.DeathEvent;
 
@@ -24,6 +26,7 @@ public class Megatron extends Robot
 	/**
 	 * run: Megatron's default behavior
 	 */
+	int dist = 50; // distance to move when we're hit
 	public void run() {
 	
 		// and the next line:
@@ -48,7 +51,8 @@ moveAmount = Math.max(getBattleFieldWidth(), getBattleFieldHeight());
 		// After trying out your robot, try uncommenting the import at the top,
       others = getOthers();
 		// Initialize gun turn speed to 3
-		;		
+	
+			
          
 		// Robot main loop		
 	while (true) {
@@ -64,6 +68,7 @@ moveAmount = Math.max(getBattleFieldWidth(), getBattleFieldHeight());
 		}
 		
 	}
+	
 public void onHitRobot(HitRobotEvent e) {
 		// If he's in front of us, set back up a bit.
 		if (e.getBearing() > -90 && e.getBearing() < 90) {
@@ -81,7 +86,26 @@ public void onHitRobot(HitRobotEvent e) {
 	public void onScannedRobot(ScannedRobotEvent e) {
 		// Replace the next line with any behavior you would like
 		fire(2);
-		
+		 double distance = e.getDistance();
+		 if(distance<200)
+        {
+		turnGunRight(2);
+           fire(3.5);
+        }
+        else if(distance<500)
+        {
+		turnGunRight(5);
+           fire(2.5);
+        }
+        else if(distance<800)
+        {
+		turnGunRight(10);
+           fire(1.5);
+        }
+        else
+        {
+           fire(0.5);
+        }
 		if (peek) {
 		
 			scan();
@@ -96,9 +120,9 @@ public void onHitRobot(HitRobotEvent e) {
 	public void onHitByBullet(HitByBulletEvent e) {
 		// Replace the next line with any behavior you would like		
 		
+		ahead(dist);
+		dist *= -1;
 		scan();
-			
-		back(10);
 			
 	}
 	public void smartFire(double robotDistance) {
@@ -114,6 +138,20 @@ public void onHitRobot(HitRobotEvent e) {
 		// Call scan again, before we turn the gun
 		scan();
 	}
+	/**
+	 * goCorner:  A very inefficient way to get to a corner.  Can you do better?
+	 */
+	public void goCorner() {
+		// Move to that wall
+		ahead(5000);
+		// Turn to face the corner
+		turnLeft(90);
+		// Move to the corner
+		ahead(5000);
+		// Turn gun to starting point
+		turnGunLeft(90);
+	}
+
 	public void onDeath(DeathEvent e) {
 		// Well, others should never be 0, but better safe than sorry.
 		if (others == 0) {
@@ -133,4 +171,5 @@ public void onHitRobot(HitRobotEvent e) {
 			fire(1);
 		}
 	}	
+	
 }
